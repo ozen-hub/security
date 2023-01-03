@@ -53,8 +53,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("ADMIN")
                 .build();
 
-
-
         return new InMemoryUserDetailsManager(
                 tharaka,ayesh,nalaka
         );
