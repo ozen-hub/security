@@ -11,7 +11,7 @@ import static com.developersatck.security.config.permission.ApplicationUserPermi
 public enum ApplicationUserRole {
     USER(Sets.newHashSet(ORDER_WRITE,PRODUCT_READ,CUSTOMER_WRITE,CUSTOMER_READ)),
     ADMIN(Sets.newHashSet(ORDER_READ,ORDER_WRITE,PRODUCT_READ,PRODUCT_WRITE,CUSTOMER_READ,CUSTOMER_WRITE)),
-    MANAGER(Sets.newHashSet(ORDER_READ,PRODUCT_READ,CUSTOMER_READ));
+    MANAGER(Sets.newHashSet(ORDER_READ,PRODUCT_READ,PRODUCT_WRITE,CUSTOMER_READ));
 
     private final Set<ApplicationUserPermission> permissions;
 
