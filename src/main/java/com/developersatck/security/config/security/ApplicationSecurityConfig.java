@@ -1,8 +1,10 @@
 package com.developersatck.security.config.security;
 
+import com.developersatck.security.config.permission.ApplicationUserPermission;
 import com.developersatck.security.config.permission.ApplicationUserRole;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.developersatck.security.config.permission.ApplicationUserPermission.PRODUCT_WRITE;
 import static com.developersatck.security.config.permission.ApplicationUserRole.*;
 
 @Configuration
@@ -30,7 +33,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "index").permitAll()
-                .antMatchers("/api/v1/**").hasRole(ADMIN.name())
+                .antMatchers("/api/v1/**").hasRole(USER.name())
+                .antMatchers(HttpMethod.GET,"member/api/v1/**").hasAnyRole(ADMIN.name(),MANAGER.name())
+                .antMatchers(HttpMethod.DELETE, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
+                .antMatchers(HttpMethod.PUT, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
+                .antMatchers(HttpMethod.POST, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
                 .anyRequest()
                 .authenticated()
                 .and()
