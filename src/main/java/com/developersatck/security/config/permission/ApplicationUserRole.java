@@ -7,7 +7,7 @@ import java.util.Set;
 import static com.developersatck.security.config.permission.ApplicationUserPermission.*;
 
 public enum ApplicationUserRole {
-    CUSTOMER(Sets.newHashSet(ORDER_WRITE,PRODUCT_READ,CUSTOMER_WRITE,CUSTOMER_READ)),
+    USER(Sets.newHashSet(ORDER_WRITE,PRODUCT_READ,CUSTOMER_WRITE,CUSTOMER_READ)),
     ADMIN(Sets.newHashSet(ORDER_READ,ORDER_WRITE,PRODUCT_READ,PRODUCT_WRITE,CUSTOMER_READ,CUSTOMER_WRITE)),
     MANAGER(Sets.newHashSet(ORDER_READ,PRODUCT_READ,CUSTOMER_READ));
 

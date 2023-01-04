@@ -3,16 +3,16 @@ package com.developersatck.security.api;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
-    @PostMapping
+    @PostMapping("/user")
     public String createCustomer(){return "createCustomer";}
-    @GetMapping
+    @GetMapping("/user")
     public String findCustomer(){return "findCustomer";}
-    @DeleteMapping
+    @DeleteMapping("/user")
     public String deleteCustomer(){return "deleteCustomer";}
-    @PutMapping
+    @PutMapping("/user")
     public String updateCustomer(){return "updateCustomer";}
-    @GetMapping("/list")
+    @GetMapping("/user/list")
     public String getAllCustomers(){return "getAllCustomers";}
 }
