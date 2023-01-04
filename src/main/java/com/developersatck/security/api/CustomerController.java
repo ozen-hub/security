@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/customers")
 public class CustomerController {
-    @PostMapping("/user/create")
+    @PostMapping
     public String createCustomer(){return "createCustomer";}
-    @GetMapping("/user/find")
+    @GetMapping
     public String findCustomer(){return "findCustomer";}
-    @DeleteMapping("/user/remove")
+    @DeleteMapping
     public String deleteCustomer(){return "deleteCustomer";}
-    @PutMapping("/user/modify")
+    @PutMapping
     public String updateCustomer(){return "updateCustomer";}
-    @GetMapping("/user/list")
+    @GetMapping("/list")
     public String getAllCustomers(){return "getAllCustomers";}
 }
