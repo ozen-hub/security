@@ -27,7 +27,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.
-                authorizeRequests()
+                csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/", "index").permitAll()
                 .antMatchers("/api/v1/**/user/**").hasRole(USER.name())
                 .anyRequest()
@@ -57,7 +58,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .build();
 
         return new InMemoryUserDetailsManager(
-                tharaka,ayesh,nalaka
+                tharaka, ayesh, nalaka
         );
 
     }

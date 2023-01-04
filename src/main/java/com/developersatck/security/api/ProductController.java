@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductController {
-    @PostMapping
+    @PostMapping("/member/create")
     public String createProduct(){return "createProduct";}
-    @GetMapping("/user")
+    @GetMapping("/user/find")
     public String findProduct(){return "findProduct";}
     @DeleteMapping
     public String deleteProduct(){return "deleteProduct";}
