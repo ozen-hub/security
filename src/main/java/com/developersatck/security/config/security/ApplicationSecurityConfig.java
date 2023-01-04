@@ -34,7 +34,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/", "index").permitAll()
                 .antMatchers("/api/v1/**").hasRole(USER.name())
-                .antMatchers(HttpMethod.GET,"member/api/v1/**").hasAnyRole(ADMIN.name(),MANAGER.name())
+                .antMatchers(HttpMethod.GET, "member/api/v1/**").hasAnyRole(ADMIN.name(), MANAGER.name())
                 .antMatchers(HttpMethod.DELETE, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
                 .antMatchers(HttpMethod.PUT, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
                 .antMatchers(HttpMethod.POST, "member/api/v1/**").hasAuthority(PRODUCT_WRITE.name())
@@ -52,6 +52,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .username("tharaka")
                 .password(passwordEncoder.encode("1234"))
                 .roles(USER.name())
+                .authorities()
                 .build();
         UserDetails ayesh = User.builder()
                 .username("ayesh")
