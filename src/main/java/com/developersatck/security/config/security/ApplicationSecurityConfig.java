@@ -1,21 +1,16 @@
 package com.developersatck.security.config.security;
 
-import com.developersatck.security.config.permission.ApplicationUserPermission;
-import com.developersatck.security.config.permission.ApplicationUserRole;
+import com.developersatck.security.service.ApplicationUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
-import static com.developersatck.security.config.permission.ApplicationUserPermission.PRODUCT_WRITE;
 import static com.developersatck.security.config.permission.ApplicationUserRole.*;
 
 @Configuration
@@ -24,9 +19,11 @@ import static com.developersatck.security.config.permission.ApplicationUserRole.
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
+    private final ApplicationUserServiceImpl applicationUserService;
 
-    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder) {
+    public ApplicationSecurityConfig(PasswordEncoder passwordEncoder, ApplicationUserServiceImpl applicationUserService) {
         this.passwordEncoder = passwordEncoder;
+        this.applicationUserService = applicationUserService;
     }
 
     @Override
@@ -43,31 +40,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // impl
+    }
+
     @Bean
-    protected UserDetailsService userDetailsService() {
-
-        UserDetails tharaka = User.builder()
-                .username("tharaka")
-                .password(passwordEncoder.encode("1234"))
-               /* .roles(USER.name())*/
-                .authorities(USER.getGrantedAuthorities())
-                .build();
-        UserDetails ayesh = User.builder()
-                .username("ayesh")
-                .password(passwordEncoder.encode("1234"))
-                /*.roles(MANAGER.name())*/
-                .authorities(MANAGER.getGrantedAuthorities())
-                .build();
-        UserDetails nalaka = User.builder()
-                .username("nalaka")
-                .password(passwordEncoder.encode("1234"))
-                /*.roles(ADMIN.name())*/
-                .authorities(ADMIN.getGrantedAuthorities())
-                .build();
-
-        return new InMemoryUserDetailsManager(
-                tharaka, ayesh, nalaka
-        );
-
+    public DaoAuthenticationProvider daoAuthenticationProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setPasswordEncoder(passwordEncoder);
+        provider.setUserDetailsService(applicationUserService);
+        return provider;
     }
 }
