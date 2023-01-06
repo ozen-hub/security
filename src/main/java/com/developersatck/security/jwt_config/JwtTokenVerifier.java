@@ -26,8 +26,7 @@ import java.util.stream.Collectors;
 
 public class JwtTokenVerifier extends OncePerRequestFilter {
 
-    @Value("${secret.key}")
-    private String secretKey;
+    private String secretKey="lskdjuiioferuemorujfteupotufougnruyouyjgoprtjgoujogiutoiurtyytyrty";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
