@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,6 +22,8 @@ import java.util.Date;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
+    @Value("${secret.key}")
+    private String secretKey;
 
     @Autowired
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
@@ -49,13 +52,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws IOException, ServletException {
 
-        String key = "lskdjuiioferuemorujfteupotufougnruyouyjgoprtjgoujogiutoiurtyytyrty";
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("authorities", authResult.getAuthorities())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(31)))
-                .signWith(Keys.hmacShaKeyFor(key.getBytes()))
+                .signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
                 .compact();
 
         response.addHeader("Authorization", "Bearer " + token);
