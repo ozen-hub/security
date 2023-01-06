@@ -1,6 +1,7 @@
 package com.developersatck.security.config.security;
 
 import com.developersatck.security.jwt_config.JwtAuthenticationFilter;
+import com.developersatck.security.jwt_config.JwtTokenVerifier;
 import com.developersatck.security.service.ApplicationUserServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,6 +37,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(),JwtAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/", "index").permitAll()
                 .antMatchers("/api/v1/**").hasRole(USER.name())
