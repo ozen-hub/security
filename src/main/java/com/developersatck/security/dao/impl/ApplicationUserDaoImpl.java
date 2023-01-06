@@ -42,7 +42,7 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
                new ApplicationUser(
                        MANAGER.getGrantedAuthorities(),
                        "ayesh",
-                       "1234",
+                       passwordEncoder.encode("1234"),
                        true,
                        true,
                        true,
@@ -51,7 +51,7 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
                new ApplicationUser(
                        ADMIN.getGrantedAuthorities(),
                        "nalaka",
-                       "1234",
+                       passwordEncoder.encode("1234"),
                        true,
                        true,
                        true,
